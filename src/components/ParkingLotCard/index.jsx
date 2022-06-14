@@ -29,16 +29,18 @@ const ParkingLotCard = ({parkingLot}) => {
         });
     }, [renters, rentersById]);
 
+    const isParkedCarARenter = (pc) => {
+        return Boolean(rentersById.current[pc.plate]);
+    };
+
     return (
         <ParkingLotCardContainer>
             <ParkingLotCardHeader name={parkingLot.name} address={parkingLot.address}/>
-
             <PlateGrid>
                 {parkedCars.map(pc => (
-                    <PlateCard plate={pc.plate} violator={!rentersById.current[pc.plate]}/>
+                    <PlateCard plate={pc.plate} violator={!isParkedCarARenter(pc)}/>
                 ))}
             </PlateGrid>
-
         </ParkingLotCardContainer>
     );
 };
